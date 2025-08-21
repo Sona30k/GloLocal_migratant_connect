@@ -18,13 +18,13 @@ GloLocal Migrant Connect is a platform designed to support migrants by connectin
 
 🛠️ Tech Stack
 
-Frontend: React / Next.js (or your chosen frontend framework)
+Frontend: React.js
 
-Backend: Node.js / Express (if applicable)
+Backend: Node.js / Express.js
 
-Database: MongoDB / PostgreSQL
+Database: MongoDB 
 
-APIs & Integrations: Google Maps API, Translation APIs
+APIs & Integrations: Google Maps API
 
 Other Tools: Git, GitHub, VS Code
 
@@ -66,4 +66,3 @@ Sign up or log in as a migrant or local volunteer.
 
 Browse services, resources, and community events.
 
-Connect with individuals or organizations offering help.
