@@ -1,0 +1,118 @@
+<!-- index.html -->
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Groq Chatbot</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f6f9;
+            display: flex;
+            justify-content: center;
+            padding: 30px;
+        }
+
+        .chat-container {
+            width: 400px;
+            background: #fff;
+            border-radius: 12px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        .messages {
+            flex: 1;
+            padding: 15px;
+            overflow-y: auto;
+        }
+
+        .message {
+            margin: 10px 0;
+            padding: 10px;
+            border-radius: 8px;
+            max-width: 80%;
+        }
+
+        .user {
+            background: #0078ff;
+            color: white;
+            align-self: flex-end;
+        }
+
+        .bot {
+            background: #e5e5ea;
+            color: black;
+            align-self: flex-start;
+        }
+
+        .input-box {
+            display: flex;
+            border-top: 1px solid #ccc;
+        }
+
+        input {
+            flex: 1;
+            border: none;
+            padding: 10px;
+            font-size: 14px;
+        }
+
+        button {
+            background: #0078ff;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #005fcc;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="chat-container">
+        <div class="messages" id="messages"></div>
+        <div class="input-box">
+            <input type="text" id="userInput" placeholder="Type your message..." />
+            <button onclick="sendMessage()">Send</button>
+        </div>
+    </div>
+
+    <script>
+        async function sendMessage() {
+            const input = document.getElementById("userInput");
+            const msg = input.value.trim();
+            if (!msg) return;
+
+            addMessage(msg, "user");
+            input.value = "";
+
+            const res = await fetch("http://127.0.0.1:5000/chat", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ message: msg })
+            });
+
+            const data = await res.json();
+            addMessage(data.reply, "bot");
+        }
+
+        function addMessage(text, sender) {
+            const messagesDiv = document.getElementById("messages");
+            const msgElem = document.createElement("div");
+            msgElem.className = `message ${sender}`;
+            msgElem.innerText = text;
+            messagesDiv.appendChild(msgElem);
+            messagesDiv.scrollTop = messagesDiv.scrollHeight;
+        }
+    </script>
+
+</body>
+
+</html>
